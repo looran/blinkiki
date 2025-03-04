@@ -1,6 +1,6 @@
-# blinkiki - measure power consumption from EDF grid meter
+# blinkiki - report power consumption from EDF grid meter
 
-blinkiki create graphs of your power consumption by counting the orange blink LED on your EDF grid meter (Linky or previous generation).
+blinkiki create graphs of your power consumption by counting the orange blink LED on your EDF grid meter, whether it is a Linky or a previous generation one (but not the rotary version).
 
 The blinkiki sensor counts the blinks every 5 seconds and reports the count over Wifi or Bluetooth to a server running on a PC.
 The server provides power consumption graphs and logs to a web browser.
@@ -198,6 +198,10 @@ run a read-only instance on a different port (statistics-only, does not accept r
 - statistics page:
 
 [http://IP:8087/stats](http://10.9.9.1:8087/stats)
+
+The top part is a zoomable graph of the power consumption (up to 5 seconds resolution). Zoom with the mouse wheel, pan by dragging.
+
+The bottom part is a "minimap" overview of all the measurements, displaying the location where top part is currently focused. 
 
 ![server](server/doc/blinkiki_stats.png)
 
