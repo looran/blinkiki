@@ -43,7 +43,7 @@ General principle:
 
 The sensor firmware is based on Zephyr RTOS. The code is located in [`sensor_fw/`](sensor_fw/) directory.
 
-It uses [MCUboot](https://docs.zephyrproject.org/latest/services/device_mgmt/dfu.html#mcuboot) to allow firmware management [over Wifi](#maintenance) and [over Bluetooth](#maintenance).
+It uses [MCUboot](https://docs.zephyrproject.org/latest/services/device_mgmt/dfu.html#mcuboot) to allow firmware management [over Wifi](#maintenance) and [over Bluetooth](#maintenance) using the [Simple Management Protocol](https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr.html).
 
 Sensor firmware files overview:
 - [main.c](sensor_fw/main.c) - source code for the sensor
@@ -167,6 +167,10 @@ Compile with `DEBUG=1`, then use `make esp-gdb-cons` to extract the core dump fr
 see [Zephyr coedump documentation](https://docs.zephyrproject.org/latest/services/debugging/coredump.html) for details.
 
 ## Maintenance
+
+Bellow targets are using [smpmgr](https://github.com/intercreate/smpmgr/) client built over [smpclient](https://github.com/intercreate/smpclient) python library.
+
+Alternatively you could try the `smp-tool` from [smp-rs](https://github.com/Gessler-GmbH/smp-rs/)
 
 - firmware update over Wifi
 
