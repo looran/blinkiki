@@ -1,4 +1,4 @@
-blinkiki - measure power consumption from EDF grid meter (Linky alterative)
+# blinkiki - measure power consumption from EDF grid meter
 
 blinkiki create graphs of your power consumption by counting the orange blink LED on your EDF grid meter (Linky or previous generation).
 
@@ -6,9 +6,9 @@ The blinkiki sensor counts the blinks every 5 seconds and reports the count over
 The server provides power consumption graphs and logs to a web browser.
 
 Components:
-* [sensor hardware](#sensor hardware)
-* [sensor firmware](#sensor firmware) ([code](sensor_fw/))
-* [server software](#server) ([code](server/))
+* [sensor hardware](#sensor-hardware)
+* [sensor firmware](#sensor-firmware)
+* [server software](#server)
 
 The EDF grid meter blinks:
 - The orange LED on EDF meter flashes every Wh passing through it.
@@ -34,7 +34,7 @@ General principle:
 
 # Sensor firmware
 
-The sensor firmware is based on Zephyr RTOS.
+The sensor firmware is based on Zephyr RTOS. The code is located in [`sensor_fw/`](sensor_fw/) directory.
 
 It uses [MCUboot](https://docs.zephyrproject.org/latest/services/device_mgmt/dfu.html#mcuboot) to allow firmware management [over Wifi](#maintenance) and [over Bluetooth](#maintenance).
 
@@ -169,7 +169,7 @@ index f6e6a33be3..60f114a940 100644
 
 The server is using python 3, [fastapi](https://fastapi.tiangolo.com/) and [holoviews](https://holoviews.org/) to provide interactive graphs of the data.
 
-It is located in [`server/`](server/) directory.
+The code is located in [`server/`](server/) directory.
 
 ## Install requirements
 
