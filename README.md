@@ -54,13 +54,44 @@ Sensor firmware files overview:
 - [boards/](sensor_fw/boards) - directory containing the Device Tree overlays for the target hardware / simulator
 - [conf/](sensor_fw/conf) - directoring containing the configuration options depending on the build type (`DEBUG=1`) and transport mode (eg. `TRANS=wifi`)
 
-## Reporting
+## Configuration
 
 The number of blinks counted every 5 seconds are reported back to the server. 10 past measurements are included in each report by default.
 
-The firmware supports 2 transport modes:
+The firmware supports 2 transport modes, configurable at build time with `make` and `TRANS=wifi` (default) or `TRANS=bt`:
 - Wifi, where the sensor will connect to a local Wifi network to report it's last 10 measurements.
 - Bluetooth, where the sensor will update the Bluetooth advertisement manufacturer data every 5 seconds to include the 10 last measurements. Bluetooth PHY can be set to Coded PHY to extend the range by using [`CONFIG_BKK_BT_CODED_PHY=y`](sensor_fw/prj.conf). See also [Bluetooth mode notes](#Bluetooth mode notes) to set tx power to the maximum.
+
+Check out the [Kconfig](sensor_fw/Kconfig) configuration definitions and adapt your [prj.conf](sensor_fw/prj.conf) settings accordingly:
+```
+comment "sensor settings"
+config BKK_SENSOR_TYPE
+	hex "Type of the sensor"
+config BKK_PULSE_STORE_COUNT
+	int "Number of 5 seconds events to store"
+config BKK_BLINK
+	bool "Blink LED"
+
+comment "Bluetooth settings"
+config BKK_BT_CODED_PHY
+	bool "Use Bluetooth Coded PHY"
+config BKK_BT_REPORT_FAST
+	bool "Use fast advertisement (100ms) instead of slow (1s)"
+
+comment "Wifi settings"
+config BKK_WIFI_SSID
+	string "wifi SSID"
+config BKK_WIFI_SECURITY
+	int "0: open, 1: wpa2-psk, 11: wpa-psk, see net/wifi.h"
+config BKK_WIFI_PSK
+	string "PSK"
+config BKK_WIFI_SERVER_ADDR
+	string "server IPv4 address"
+config BKK_WIFI_SERVER_PORT
+	int "server port"
+config BKK_WIFI_REPORT_INTERVAL
+	int "interval in seconds to report values"
+```
 
 ## Building & flashing
 
