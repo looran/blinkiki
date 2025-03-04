@@ -240,8 +240,8 @@ The bottom part is a "minimap" overview of all the measurements, displaying the 
 
 ![server](server/doc/blinkiki_stats.png)
 
-# Related products
+# Similar devices
 
-- OTMetric - Bubble UP
+- OTMetric - Bubble UP (commercial)
 https://cdn.store-factory.com/www.compteur-energie.com/media/FT-OPTIC-EDF-169-MHz-2023.pdf
 https://cdn.store-factory.com/www.compteur-energie.com/media/Notice-technique-OPTIC-EDF.pdf
