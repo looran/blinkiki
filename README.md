@@ -5,6 +5,8 @@ blinkiki create graphs of your power consumption by counting the orange blink LE
 The blinkiki sensor counts the blinks every 5 seconds and reports the count over Wifi or Bluetooth to a server running on a PC.
 The server provides power consumption graphs and logs to a web browser.
 
+![server](server/doc/blinkiki_stats.png)
+
 Components:
 * [sensor hardware](#sensor-hardware)
 * [sensor firmware](#sensor-firmware)
@@ -13,6 +15,7 @@ Components:
 The EDF grid meter blinks:
 - The orange LED on EDF meter flashes every Wh passing through it.
 - The flashes are around 40ms long.
+<img src="sensor_hw/meter.jpg" width="300px"/>
 
 # Sensor Hardware
 
@@ -24,9 +27,13 @@ Items list:
 - 1x lipo battery
 - 1x "small" plastic case
 
+<img src="sensor_hw/open.jpg" width="300px"/>
+
 Mounting together:
 - a drill to make a hole in the plastic case for the photodiode
 - hot glue to attach the electronics to the case
+
+<img src="sensor_hw/wiring_sens.jpg" width="500px"/>
 
 General principle:
 - Our sensor will detect the grid meter LED blinks using a photodiode. The resistance of the photodiode will vary depending on the level of light. We apply 3.3V on to the photodiode, and put a resistor in serial with it. By measuring the current at the resistor pins using the ADC of an MCU, we can observe the variations of resistance of the photodiode.
@@ -190,7 +197,9 @@ run a read-only instance on a different port (statistics-only, does not accept r
 
 - statistics page:
 
-[http://10.9.9.1:8087/stats](http://<IP>:8087/stats)
+[http://IP:8087/stats](http://10.9.9.1:8087/stats)
+
+![server](server/doc/blinkiki_stats.png)
 
 # Related products
 
