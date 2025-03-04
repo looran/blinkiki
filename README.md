@@ -54,6 +54,8 @@ Sensor firmware files overview:
 - [boards/](sensor_fw/boards) - directory containing the Device Tree overlays for the target hardware / simulator
 - [conf/](sensor_fw/conf) - directoring containing the configuration options depending on the build type (`DEBUG=1`) and transport mode (eg. `TRANS=wifi`)
 
+Power consumption of the sensor is not optimised.
+
 ## Configuration
 
 The number of blinks counted every 5 seconds are reported back to the server. 10 past measurements are included in each report by default.
