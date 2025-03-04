@@ -1,0 +1,42 @@
+/* from zephyr/samples/drivers/adc/adc_dt/boards/samd21_xpro.overlay */
+
+/ {
+	/* select USB uart by default */
+	chosen {
+		zephyr,console = &cdc_acm_uart0;
+		zephyr,shell-uart = &cdc_acm_uart0;
+	};
+	/* enable ADC */
+        zephyr,user {
+                io-channels = <&adc 0>;
+        };
+        aliases {
+                 led-strip = &led1;
+        };
+};
+
+&adc {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+	status = "okay"; /* ADC is not enabled by default on Trinket M0 */
+        channel@0 { 
+                reg = <0>;
+                zephyr,gain = "ADC_GAIN_1";
+                zephyr,reference = "ADC_REF_INTERNAL";
+                zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+                zephyr,resolution = <12>; 
+                zephyr,input-positive = <6>;
+        };
+};
+
+&zephyr_udc0 {
+    cdc_acm_uart0: cdc_acm_uart0 {
+        compatible = "zephyr,cdc-acm-uart";
+    };
+};
+
+&led1 {
+	status = "okay";
+	zephyr,deferred-init;
+};

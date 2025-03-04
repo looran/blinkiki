@@ -1,0 +1,33 @@
+menu "Blinkiki configuration"
+
+comment "sensor settings"
+config BKK_SENSOR_TYPE
+	hex "Type of the sensor"
+config BKK_PULSE_STORE_COUNT
+	int "Number of 5 seconds events to store"
+config BKK_BLINK
+	bool "Blink LED"
+
+comment "Bluetooth settings"
+config BKK_BT_CODED_PHY
+	bool "Use Bluetooth Coded PHY"
+config BKK_BT_REPORT_FAST
+	bool "Use fast advertisement (100ms) instead of slow (1s)"
+
+comment "Wifi settings"
+config BKK_WIFI_SSID
+	string "wifi SSID"
+config BKK_WIFI_SECURITY
+	int "0: open, 1: wpa2-psk, 11: wpa-psk, see net/wifi.h"
+config BKK_WIFI_PSK
+	string "PSK"
+config BKK_WIFI_SERVER_ADDR
+	string "server IPv4 address"
+config BKK_WIFI_SERVER_PORT
+	int "server port"
+config BKK_WIFI_REPORT_INTERVAL
+	int "interval in seconds to report values"
+
+endmenu
+
+source "Kconfig.zephyr"

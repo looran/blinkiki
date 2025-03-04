@@ -1,0 +1,14 @@
+diff --git a/soc/espressif/esp32s3/hw_init.c b/soc/espressif/esp32s3/hw_init.c
+index 97ffb0ef826..1a5f298b794 100644
+--- a/soc/espressif/esp32s3/hw_init.c
++++ b/soc/espressif/esp32s3/hw_init.c
+@@ -58,7 +58,9 @@ int hardware_init(void)
+ 	bootloader_clock_configure();
+ 
+ 	/* initialize console, from now on, we can log */
++#ifdef CONFIG_ESP_CONSOLE_UART // LG
+ 	esp_console_init();
++#endif
+ 	print_banner();
+ 
+ 	spi_flash_init_chip_state();

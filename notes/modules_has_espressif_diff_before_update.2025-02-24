@@ -1,0 +1,16 @@
+diff --git a/zephyr/esp32s3/include/bt/esp_bt.h b/zephyr/esp32s3/include/bt/esp_bt.h
+index f6e6a33be3..60f114a940 100644
+--- a/zephyr/esp32s3/include/bt/esp_bt.h
++++ b/zephyr/esp32s3/include/bt/esp_bt.h
+@@ -57,7 +57,10 @@ extern "C" {
+ #define ESP32_RADIO_TXP_DEFAULT ESP_PWR_LVL_N24
+ #else
+ /* use 0dB TX power as default */
+-#define ESP32_RADIO_TXP_DEFAULT ESP_PWR_LVL_N0
++//#define ESP32_RADIO_TXP_DEFAULT ESP_PWR_LVL_N0
++//#define ESP32_RADIO_TXP_DEFAULT ESP_PWR_LVL_N0 // LG ~60
++//#define ESP32_RADIO_TXP_DEFAULT ESP_PWR_LVL_P9 // LG ~50
++#define ESP32_RADIO_TXP_DEFAULT ESP_PWR_LVL_P21 // LG ~40
+ #endif
+ 
+ /**
