@@ -46,7 +46,6 @@
 #define LIGHT_SAMPLING_DURATION_MS 5000 /* sample for 5 seconds before processing */
 #define LIGHT_SAMPLING_COUNT (LIGHT_SAMPLING_DURATION_MS / LIGHT_SAMPLING_MS)
 #define LIGHT_WINDOW_SAMPLE_COUNT 5
-//#define LIGHT_THRESHOLD_MIN_COUNT LIGHT_STORE_COUNT / 2 /* minimum number of valid measurements to compute a threshold */
 #define LIGHT_THRESHOLD_MIN_PERCENT 2.0 /* minimum percentage difference between min and max measurement to compute a threshold */
 /* light emulation (for testing with native simulator) */
 #ifdef CONFIG_BOARD_NATIVE_SIM
@@ -95,7 +94,6 @@ struct sens_win {
 	int32_t values[LIGHT_WINDOW_SAMPLE_COUNT];
 	int pulselen;
 };
-	
 static struct {
 	int16_t store[LIGHT_STORE_COUNT];
 	int pos;
@@ -122,7 +120,6 @@ static struct {
 };
 
 static int board_setup(void);
-//static void light_thread(void *, void *, void *);
 static void light_timer(struct k_timer *timer);
 static void light_work(struct k_work *work);
 static int light_process(int);
@@ -147,11 +144,13 @@ static void wifi_event(struct net_mgmt_event_callback *, uint32_t, struct net_if
 static int http_req(int, const char *, const char *, int);
 #endif
 
-//K_THREAD_DEFINE(light, 1024, light_thread, NULL, NULL, NULL, K_PRIO_PREEMPT(2), 0, -1);
-//K_THREAD_DEFINE(light, 1024, light_thread, NULL, NULL, NULL, 3, 0, -1);
 K_TIMER_DEFINE(_light_timer, light_timer, NULL);
 K_WORK_DEFINE(_light_work, light_work);
 K_MSGQ_DEFINE(_light_msg, sizeof(int), LIGHT_QUEUE_SIZE, 4); /* queue of int messages, aligned on 4 bytes */
+
+/*
+ * Main and board setup
+ */
 
 int
 main(void)
@@ -328,7 +327,7 @@ board_setup(void)
 }
 
 /*
- * Light timer and functions
+ * Light timer and processing functions
  */
 
 static void
@@ -531,9 +530,6 @@ static void
 pulse_process(int pulses, int64_t uptime)
 {
 	_puls.store[_puls.pos] = pulses;
-	/* if we cannot compute a threshold, report error */
-	//if (_sens.win.threshold == -1)
-	//	_puls.store[_puls.pos] = 0xff;
 	_puls.pos_last = _puls.pos;
 	_puls.pos++;
 	if (_puls.pos == CONFIG_BKK_PULSE_STORE_COUNT)
@@ -564,6 +560,7 @@ report_cpy(char *buf, int64_t uptime)
 /*
  * Bluetooth functions
  */
+
 #ifdef CONFIG_BT
 static void
 bt_adv_start(struct k_work *work)
@@ -636,7 +633,6 @@ static void bt_connected(struct bt_conn *conn, uint8_t err)
 {
         if (err) {
                 LOG_ERR("bt Connection failed, err 0x%02x %s", err, bt_hci_err_to_str(err));
-                //k_work_submit(&_bt_adv_work);
 		_bt_conn = NULL;
         } else {
                 LOG_DBG("bt Connected");
@@ -668,6 +664,7 @@ BT_CONN_CB_DEFINE(conn_callbacks) = {
 /*
  * Wifi functions
  */
+
 #ifdef CONFIG_WIFI
 static int
 wifi_report(int64_t uptime, int reports)
