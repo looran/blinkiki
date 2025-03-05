@@ -54,7 +54,7 @@ Sensor firmware files overview:
 - [boards/](sensor_fw/boards) - directory containing the Device Tree overlays for the target hardware / simulator
 - [conf/](sensor_fw/conf) - directoring containing the configuration options depending on the build type (`DEBUG=1`) and transport mode (eg. `TRANS=wifi`)
 
-Power consumption of the sensor is not optimised.
+See [Internals](#internals) for more details.
 
 ## Configuration
 
@@ -185,6 +185,25 @@ make wifi-flash IP=XXX.XXX.XXX.XXX
 ```
 make bt-flash MAC=XX:XX:XX:XX:XX:XX
 ```
+
+## Internals of the firmware
+
+main function:
+- set-up the board: ADC, GPIOs (optional blink), start transport wifi / bluetooth
+- spawns a timer called "light"
+- main loop
+  - wait message from "light" timer
+  - detect peaks in the last 5 seconds buffer
+    - reads a window of 5 measurements
+    - detect peaks in this window
+  - report the number of peaks over wifi / bluetooth 
+
+"light" timer:
+- called every 25ms
+- read one ADC value and adds it to a 5 seconds buffer
+- if 5 seconds buffer is full, sends an IPC message to main and switch to other buffer
+
+Power consumption of the sensor is not optimised.
 
 ## Bluetooth mode notes
 
