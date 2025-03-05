@@ -54,7 +54,7 @@ Sensor firmware files overview:
 - [boards/](sensor_fw/boards) - directory containing the Device Tree overlays for the target hardware / simulator
 - [conf/](sensor_fw/conf) - directoring containing the configuration options depending on the build type (`DEBUG=1`) and transport mode (eg. `TRANS=wifi`)
 
-See [Internals](#internals) for more details.
+See [Internals](#internals-of-the-firmware) for more details.
 
 ## Configuration
 
