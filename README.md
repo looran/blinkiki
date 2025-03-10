@@ -1,6 +1,7 @@
-# blinkiki - report power consumption from EDF grid meter
+# blinkiki - report power consumption from a grid meter
 
-blinkiki create graphs of your power consumption by counting the orange blink LED on your EDF grid meter, whether it is a Linky or a previous generation one (but not the rotary version).
+blinkiki create graphs of your power consumption by counting the blinking LED impulses on your grid meter.
+Various grid meters around the world have this blinking LED feature to provide an easy visual way to verify power consumption, for example in France the generation before Linky and Linky itself use an orange LED.
 
 The blinkiki sensor counts the blinks every 5 seconds and reports the count over Wifi or Bluetooth to a server running on a PC.
 The server provides power consumption graphs and logs to a web browser.
@@ -12,10 +13,20 @@ Components:
 * [sensor firmware](#sensor-firmware)
 * [server software](#server)
 
-The EDF grid meter blinks:
-- The orange LED on EDF meter flashes every Wh passing through it.
+Background on grid meter blinks:
+- The orange LED on EDF meter flashes every Wh passing through it. In Tunisia it is the same.
 - The flashes are around 40ms long.
-<img src="sensor_hw/meter.jpg" width="300px"/>
+
+<table>
+	<tr>
+		<td><img src="sensor_hw/meter.jpg" width="300px"/></td>
+		<td><img src="sensor_hw/meter_tn.jpeg" width="300px"/></td>
+	</tr>
+	<tr>
+		<td>France EDF grid meter</td>
+		<td>Tunisia STEG grid meter</td>
+	</tr>
+</table>
 
 # Sensor Hardware
 
